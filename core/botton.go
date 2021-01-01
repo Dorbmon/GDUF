@@ -5,20 +5,20 @@ import (
 )
 
 type Button struct {
-	Text string
+	Text    string
 	OnClick func()
 }
 
 func (z *Button) Init() error {
 	return nil
 }
-func (z *Button) Build() (gtk.IWidget,error) {
-	button, err := gtk.ButtonNewWithLabel("Hello World")		//创建一个按钮
+func (z *Button) Build() (gtk.IWidget, error) {
+	button, err := gtk.ButtonNewWithLabel("Hello World") //创建一个按钮
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	if z.OnClick != nil {
-		button.Connect("clicked",z.OnClick)
+		button.Connect("clicked", z.OnClick)
 	}
-	return button,nil
+	return button, nil
 }

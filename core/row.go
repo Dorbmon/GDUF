@@ -3,9 +3,9 @@ package core
 import "github.com/gotk3/gotk3/gtk"
 
 type Row struct {
-	Children []Element
+	Children       []Element
 	ElementPadding int
-	box *gtk.Box
+	box            *gtk.Box
 }
 
 func (z *Row) Init() error {
@@ -14,23 +14,23 @@ func (z *Row) Init() error {
 	if err != nil {
 		return err
 	}
-	for _,element := range z.Children {
-		if err := element.Init();err != nil {
+	for _, element := range z.Children {
+		if err := element.Init(); err != nil {
 			return err
 		}
 	}
 	return nil
 }
-func (z *Row) Build() (gtk.IWidget,error) {
+func (z *Row) Build() (gtk.IWidget, error) {
 	if z.Children == nil {
-		return z.box,nil
+		return z.box, nil
 	}
-	for _,element := range z.Children {
-		widget,err := element.Build()
+	for _, element := range z.Children {
+		widget, err := element.Build()
 		if err != nil {
-			return nil,err
+			return nil, err
 		}
 		z.box.Add(widget)
 	}
-	return z.box,nil
+	return z.box, nil
 }

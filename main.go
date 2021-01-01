@@ -2,13 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/gotk3/gotk3/gtk"
 	"main.go/core"
 )
 
 func main() {
-	gtk.Init(nil)
-	app,_ := core.NewApp("rx.rx")
+	app, _ := core.NewApp("rx.rx")
 	mainWin := core.Window{
 		Title: "TestWindow",
 		DefaultSize: core.Vector2{
@@ -16,13 +14,14 @@ func main() {
 			Y: 500,
 		},
 		Body: &core.Column{
-			Children:       []core.Element{
+			Children: []core.Element{
 				&core.Button{
-					Text:    "Here",
+					Text: "Here",
 					OnClick: func() {
 						fmt.Println("Here")
 					},
 				},
+				&core.Text{Text: "HiHi"},
 			},
 			ElementPadding: 4,
 		},

@@ -7,29 +7,29 @@ type Vector2 struct {
 	Y int
 }
 type Window struct {
-	Title string
+	Title       string
 	DefaultSize Vector2
-	window *gtk.Window
-	Body Element
+	window      *gtk.Window
+	Body        Element
 }
 
-func (z *Window) Init () error {
+func (z *Window) Init() error {
 	var err error
-	z.window,err = gtk.WindowNew(gtk.WINDOW_TOPLEVEL)
+	z.window, err = gtk.WindowNew(gtk.WINDOW_TOPLEVEL)
 	if err != nil {
 		return err
 	}
 	if z.Body != nil {
-		if err := z.Body.Init();err != nil {
+		if err := z.Body.Init(); err != nil {
 			return err
 		}
-		body,err := z.Body.Build()
+		body, err := z.Body.Build()
 		if err != nil {
 			return err
 		}
 		z.window.Add(body)
 	}
 	z.window.SetTitle(z.Title)
-	z.window.SetDefaultSize(z.DefaultSize.X,z.DefaultSize.Y)
+	z.window.SetDefaultSize(z.DefaultSize.X, z.DefaultSize.Y)
 	return nil
 }
