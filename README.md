@@ -22,3 +22,11 @@ Golang Decarative UI Framework based on GTK3.
 		},
 	}
 ```
+
+When you want to build your custom widget,you should make sure these functions are in your *widget:
+
+```
+func Build() Element
+func Init() error
+func Update() error
+```

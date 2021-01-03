@@ -34,3 +34,18 @@ func (z *Column) Build() (gtk.IWidget, error) {
 	}
 	return z.box, nil
 }
+func (z *Column) Update() error {
+	children := z.box.GetChildren()
+	children.Foreach(func (Item interface{}) {
+		z.box.Remove(Item.(gtk.IWidget))
+	})
+	for _, element := range z.Children {
+		element.Update()
+		widget, err := element.Build()
+		if err != nil {
+			return err
+		}
+		z.box.Add(widget)
+	}
+	return nil
+}

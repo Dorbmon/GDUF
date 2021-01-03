@@ -4,7 +4,11 @@ import (
 	"github.com/gotk3/gotk3/glib"
 	"github.com/gotk3/gotk3/gtk"
 )
-
+func Str (str string) *string {
+	_str := new(string)
+	*_str = str
+	return _str;
+}
 func NewApp(AppId string) (*App, error) {
 	app, err := gtk.ApplicationNew(AppId, glib.APPLICATION_FLAGS_NONE)
 	if err != nil {

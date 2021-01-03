@@ -10,7 +10,7 @@ type Window struct {
 	Title       string
 	DefaultSize Vector2
 	window      *gtk.Window
-	Body        Element
+	Body        beyond
 }
 
 func (z *Window) Init() error {
@@ -23,7 +23,7 @@ func (z *Window) Init() error {
 		if err := z.Body.Init(); err != nil {
 			return err
 		}
-		body, err := z.Body.Build()
+		body, err := toIWidget(z.Body)
 		if err != nil {
 			return err
 		}
@@ -32,4 +32,7 @@ func (z *Window) Init() error {
 	z.window.SetTitle(z.Title)
 	z.window.SetDefaultSize(z.DefaultSize.X, z.DefaultSize.Y)
 	return nil
+}
+func (z *Window) Update() error {
+	return z.Body.Update()
 }

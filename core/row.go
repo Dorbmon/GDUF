@@ -19,18 +19,29 @@ func (z *Row) Init() error {
 			return err
 		}
 	}
+	if err := z.Update();err != nil {
+		return err
+	}
 	return nil
 }
 func (z *Row) Build() (gtk.IWidget, error) {
 	if z.Children == nil {
 		return z.box, nil
 	}
+	return z.box, nil
+}
+func (z *Row) Update() error {
+	children := z.box.GetChildren()
+	children.Foreach(func (Item interface{}) {
+		z.box.Remove(Item.(gtk.IWidget))
+	})
 	for _, element := range z.Children {
+		element.Update()
 		widget, err := element.Build()
 		if err != nil {
-			return nil, err
+			return err
 		}
 		z.box.Add(widget)
 	}
-	return z.box, nil
+	return nil
 }
