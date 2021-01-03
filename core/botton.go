@@ -7,7 +7,7 @@ import (
 type Button struct {
 	Text    *string
 	OnClick func()
-	button *gtk.Button
+	button  *gtk.Button
 }
 
 func (z *Button) Init() error {
@@ -17,9 +17,9 @@ func (z *Button) Init() error {
 		return err
 	}
 	if z.OnClick != nil {
-		z.button.Connect("clicked", func () {
+		z.button.Connect("clicked", func() {
 			if z.OnClick != nil {
-				z.OnClick ()
+				z.OnClick()
 			}
 		})
 	}

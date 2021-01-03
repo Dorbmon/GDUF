@@ -3,7 +3,7 @@ package core
 import "github.com/gotk3/gotk3/gtk"
 
 type Row struct {
-	Children       []Element
+	Children       []Basic
 	ElementPadding int
 	box            *gtk.Box
 }
@@ -19,7 +19,7 @@ func (z *Row) Init() error {
 			return err
 		}
 	}
-	if err := z.Update();err != nil {
+	if err := z.Update(); err != nil {
 		return err
 	}
 	return nil
@@ -32,12 +32,12 @@ func (z *Row) Build() (gtk.IWidget, error) {
 }
 func (z *Row) Update() error {
 	children := z.box.GetChildren()
-	children.Foreach(func (Item interface{}) {
+	children.Foreach(func(Item interface{}) {
 		z.box.Remove(Item.(gtk.IWidget))
 	})
 	for _, element := range z.Children {
 		element.Update()
-		widget, err := element.Build()
+		widget, err := toIWidget(element)
 		if err != nil {
 			return err
 		}

@@ -7,12 +7,16 @@ type Vector2 struct {
 	Y int
 }
 type Window struct {
-	Title       string
-	DefaultSize Vector2
+	Title       *string
+	DefaultSize *Vector2
 	window      *gtk.Window
-	Body        beyond
+	Body        Basic
 }
 
+func (z *Window) BindApp(application *gtk.Application) error {
+	z.window.SetApplication(application)
+	return nil
+}
 func (z *Window) Init() error {
 	var err error
 	z.window, err = gtk.WindowNew(gtk.WINDOW_TOPLEVEL)
@@ -29,10 +33,31 @@ func (z *Window) Init() error {
 		}
 		z.window.Add(body)
 	}
-	z.window.SetTitle(z.Title)
-	z.window.SetDefaultSize(z.DefaultSize.X, z.DefaultSize.Y)
-	return nil
+	return z.Update()
 }
 func (z *Window) Update() error {
+	if z.Title != nil {
+		z.window.SetTitle(*z.Title)
+	}
+	if z.DefaultSize != nil {
+		z.window.SetDefaultSize(z.DefaultSize.X, z.DefaultSize.Y)
+	}
 	return z.Body.Update()
+}
+func (z *Window) toWindow() *gtk.Window {
+	return z.window
+}
+func (z *Window) BindOnClose(f func(show show)) error{
+	_,ret := z.window.Connect("destroy", func() {
+		f (z)
+	})
+	return ret
+}
+func (z *Window) Show () error {
+	z.window.ShowAll()
+	return nil
+}
+func (z *Window) Hide () error {
+	z.window.Hide()
+	return nil
 }
