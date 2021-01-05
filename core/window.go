@@ -11,6 +11,7 @@ type Window struct {
 	DefaultSize *Vector2
 	window      *gtk.Window
 	Body        Basic
+	TitleBar	*HeaderBar
 }
 
 func (z *Window) BindApp(application *gtk.Application) error {
@@ -33,6 +34,12 @@ func (z *Window) Init() error {
 		}
 		z.window.Add(body)
 	}
+	if z.TitleBar != nil {
+		err := z.TitleBar.Init()
+		if err != nil {
+			return err
+		}
+	}
 	return z.Update()
 }
 func (z *Window) Update() error {
@@ -41,6 +48,13 @@ func (z *Window) Update() error {
 	}
 	if z.DefaultSize != nil {
 		z.window.SetDefaultSize(z.DefaultSize.X, z.DefaultSize.Y)
+	}
+	if z.TitleBar != nil {
+		bar,err := toIWidget(z.TitleBar)
+		if err != nil {
+			return err
+		}
+		z.window.SetTitlebar(bar)
 	}
 	return z.Body.Update()
 }

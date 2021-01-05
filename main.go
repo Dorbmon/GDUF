@@ -15,9 +15,9 @@ func main() {
 	entry := core.Entry{Text: core.Str("Initial Text")}
 	mainWin = core.Window{
 		Title: core.Str("TestWindow"),
-		DefaultSize: &core.Vector2{
-			X: 200,
-			Y: 500,
+		TitleBar: &core.HeaderBar{
+			Title:    core.Str("TestWindow"),
+			SubTitle: core.Str("Subtitle"),
 		},
 		Body: &core.Column{
 			Children: []core.Basic{

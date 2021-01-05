@@ -39,7 +39,7 @@ type App struct {
 func init() {
 	gtk.Init(nil)
 }
-func toIWidget(widget interface{}) (gtk.IWidget, error) {
+func toIWidget(widget Basic) (gtk.IWidget, error) {
 	// If it is a built-in widget
 	t := reflect.TypeOf(widget)
 	if t.Implements(customWidgetType) {
